@@ -1,0 +1,10 @@
+{
+    "id": "5fd0ba4e0af76164696a8b67",
+    "name": "scheduledPropagationTrigger",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "*/5 * * * *"
+    },
+    "function_name": "scheduledPropagation",
+    "disabled": false
+}

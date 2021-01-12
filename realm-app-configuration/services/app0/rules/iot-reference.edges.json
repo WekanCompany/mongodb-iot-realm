@@ -1,0 +1,89 @@
+{
+    "collection": "edges",
+    "database": "iot-reference",
+    "id": "5fcd79283275a89738c01a55",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "bsonType": "object",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "compactSize": {
+                "bsonType": "double"
+            },
+            "edgeId": {
+                "bsonType": "string"
+            },
+            "edgeName": {
+                "bsonType": "string"
+            },
+            "lastUpdateDt": {
+                "bsonType": "date"
+            },
+            "partitionKey": {
+                "bsonType": "string"
+            },
+            "sensors": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "_id": {
+                            "bsonType": "objectId"
+                        },
+                        "isConfigured": {
+                            "bsonType": "bool"
+                        },
+                        "sensorId": {
+                            "bsonType": "string"
+                        },
+                        "sensorName": {
+                            "bsonType": "string"
+                        },
+                        "sensorType": {
+                            "bsonType": "string"
+                        },
+                        "threshold": {
+                            "bsonType": "string"
+                        },
+                        "unit": {
+                            "bsonType": "string"
+                        }
+                    },
+                    "required": [
+                        "_id",
+                        "sensorId",
+                        "sensorName",
+                        "sensorType"
+                    ],
+                    "title": "sensor"
+                }
+            },
+            "updateDay": {
+                "bsonType": "int"
+            },
+            "updateImageName": {
+                "bsonType": "string"
+            },
+            "updateTime": {
+                "bsonType": "string"
+            }
+        },
+        "required": [
+            "_id",
+            "edgeId",
+            "edgeName"
+        ],
+        "title": "edges"
+    }
+}

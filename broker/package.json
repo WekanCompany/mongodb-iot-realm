@@ -1,0 +1,19 @@
+{
+  "name": "aedes-realm",
+  "description": "MQTT Broker with persistence to Realm",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "aedes": "^0.43.0",
+    "axios": "^0.21.0",
+    "bson": "^4.2.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mqemitter": "^4.4.0",
+    "realm": "^10.0.2",
+    "sense-hat-led": "^1.2.0"
+  },
+  "devDependencies": {}
+}

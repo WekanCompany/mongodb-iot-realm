@@ -1,0 +1,23 @@
+{
+    "id": "5fc9fb09075d213dc5dc6f14",
+    "name": "app0",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "mongodb-iot-dev",
+        "readPreference": "primary",
+        "sync": {
+            "state": "enabled",
+            "database_name": "iot-reference",
+            "partition": {
+                "key": "partitionKey",
+                "type": "string",
+                "permissions": {
+                    "read": true,
+                    "write": true
+                }
+            }
+        },
+        "wireProtocolEnabled": false
+    },
+    "version": 1
+}

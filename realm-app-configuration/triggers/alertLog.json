@@ -1,0 +1,19 @@
+{
+    "id": "5fd0ba8e0af76164696acefb",
+    "name": "alertLog",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT"
+        ],
+        "database": "iot-reference",
+        "collection": "sensorData",
+        "service_name": "app0",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "unordered": false
+    },
+    "function_name": "alertLog",
+    "disabled": false
+}

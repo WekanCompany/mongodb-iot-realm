@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+
+
+
+@import './header.scss';
+@import './footer.scss';
+
+@import "./home.scss";
+@import "./404.scss";
+
+
+body{
+    background-color: white;
+}

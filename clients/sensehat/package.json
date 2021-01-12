@@ -1,0 +1,16 @@
+{
+  "name": "mqtt-sensehat-client",
+  "version": "1.0.0",
+  "description": "Reads sensehat sensor data and pushes it to the mqtt broker",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.3",
+    "nodeimu": "^2.1.12"
+  }
+}

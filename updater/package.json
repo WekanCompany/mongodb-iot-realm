@@ -1,0 +1,16 @@
+{
+  "name": "updater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "Sanchan Moses <sanchanm@wekan.company>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "dockerode": "^3.2.1",
+    "express": "^4.17.1"
+  }
+}

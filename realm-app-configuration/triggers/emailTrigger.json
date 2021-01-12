@@ -1,0 +1,19 @@
+{
+    "id": "5fd0bb221919a2df04fbe4a2",
+    "name": "emailTrigger",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT"
+        ],
+        "database": "iot-reference",
+        "collection": "logs",
+        "service_name": "app0",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "unordered": false
+    },
+    "function_name": "sendEmail",
+    "disabled": false
+}

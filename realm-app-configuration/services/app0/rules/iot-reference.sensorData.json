@@ -1,0 +1,49 @@
+{
+    "collection": "sensorData",
+    "database": "iot-reference",
+    "id": "5fcd79462cb3e409732ee633",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "bsonType": "object",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "edgeId": {
+                "bsonType": "string"
+            },
+            "partitionKey": {
+                "bsonType": "string"
+            },
+            "sensorId": {
+                "bsonType": "string"
+            },
+            "sensorType": {
+                "bsonType": "string"
+            },
+            "timestamp": {
+                "bsonType": "long"
+            },
+            "value": {
+                "bsonType": "double"
+            }
+        },
+        "required": [
+            "_id",
+            "edgeId",
+            "sensorId",
+            "timestamp",
+            "value"
+        ],
+        "title": "sensorData"
+    }
+}

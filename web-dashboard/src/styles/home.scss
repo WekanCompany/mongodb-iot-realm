@@ -1,0 +1,47 @@
+.home-page {
+  height: 90vh;
+  padding: 10px 20px;
+  .tab-header {
+    margin-bottom: 0px;
+  }
+
+  .setting-item {
+    .information-container {
+      padding: 0px 20px !important;
+      .title {
+        font-weight: 600;
+      }
+      .description {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+    }
+    .input-container {
+      padding: 0px 20px !important;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      .label-placeholder {
+        font-weight: 100;
+        font-size: 12px;
+        opacity: 0.5;
+      }
+      .input-field {
+        width: 100%;
+        padding: 4px 11px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .ant-input-number-input {
+    padding: 0;
+    height: initial;
+  }
+
+
+#home-page{
+    
+}
+}
