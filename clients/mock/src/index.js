@@ -3,14 +3,14 @@
 const mqtt = require('mqtt');
 
 const client = mqtt.connect('mqtt://localhost:1883');
-function getRandomArbitrary(min, max) {
+function getRandomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
 client.on('connect', function () {
   client.subscribe('dht/temperature', function (err) {
     if (!err) {
       setInterval(() => {
-        const tempCelsius = getRandomArbitrary(29,33);
+        const tempCelsius = getRandomNumber(29, 33);
         client.publish(
           'dht/temperature',
           JSON.stringify({
@@ -33,7 +33,7 @@ client.on('connect', function () {
           JSON.stringify({
             sensorType: 'humidity',
             sensorId: 'a27179de-fae5-4b58-ad8f-d839ae755c9b',
-            relHumidity: getRandomArbitrary(69,75),
+            relHumidity: getRandomNumber(69, 75),
             timestamp: Date.now(),
           })
         );
