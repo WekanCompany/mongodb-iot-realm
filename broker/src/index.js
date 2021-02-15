@@ -29,7 +29,7 @@ const main = async () => {
       },
       schema: [configurationSchema.edge, configurationSchema.sensor],
     };
-    /** Open Realm synchronously */
+
     const realm = await Realm.open(config);
 
     const edgeConfiguration = utils.realm.getEdgeConfiguration(realm, edgeId);
