@@ -3,7 +3,7 @@
 const axios = require('axios');
 const os = require('os');
 const moment = require('moment');
-const realmUtils =  require('./realm');
+const realmUtils = require('./realm');
 
 const LOG_PREFIX = 'Updater';
 
@@ -31,7 +31,7 @@ exports.start = function start(
         result[0].lastUpdateDt = currentDt;
       });
 
-      broker.pause();
+      broker.close();
 
       await axios
         .post(`${updateBaseUrl}/container/`, {
@@ -45,7 +45,7 @@ exports.start = function start(
       broker.start(brokerPort);
     }
   }, updateInterval * 60 * 1000);
-}
+};
 
 function getUpdateDt(updateDay, updateTime) {
   const updateDate = moment().isoWeekday(updateDay);

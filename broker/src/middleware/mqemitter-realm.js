@@ -51,7 +51,7 @@ function RealmEmitter(opts) {
    *
    * Defined in seconds. Defaults to 60 minutes.
    */
-  this._compactionInterval = 60 * 60;
+  this._compactionCheckInterval = 60 * 60;
   /** Defined in MiB */
   this._compactionThreshold = 25;
   /**
@@ -66,8 +66,8 @@ function RealmEmitter(opts) {
     if (opts.compactionThreshold) {
       this._compactionThreshold = opts.compactionThreshold;
     }
-    if (opts._compactionInterval) {
-      this._compactionInterval = opts.compactionInterval;
+    if (opts._compactionCheckInterval) {
+      this._compactionCheckInterval = opts.compactionCheckInterval;
     }
     if (opts.messageSyncInterval) {
       this._syncInterval = opts.messageSyncInterval;
@@ -191,7 +191,7 @@ RealmEmitter.prototype.startCompaction = function startCompaction() {
         }
       }
     }
-  }, this._compactionInterval * 1000);
+  }, this._compactionCheckInterval * 1000);
 };
 
 RealmEmitter.prototype.startCleanup = function startCleanup() {
@@ -202,6 +202,7 @@ RealmEmitter.prototype.startCleanup = function startCleanup() {
 };
 
 RealmEmitter.prototype.triggerSync = function triggerSync() {
+  console.log(`[${LOG_PREFIX}] Triggering message sync`);
   eventEmitter.emit(
     SYNC_MESSAGES,
     this._realms,
@@ -240,6 +241,7 @@ function syncMessages(
         realm.write(() =>
           prepareBulkWrite(realm, messages, topics[i], handlers[i], schemaName)
         );
+        console.log(`[${LOG_PREFIX}] Messages synced`);
       }
     }
   } catch (error) {

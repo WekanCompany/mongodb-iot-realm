@@ -55,7 +55,7 @@ const main = async () => {
           },
         ],
         compactionThreshold: edgeConfiguration[0].compactSize,
-        compactionInterval: process.env.COMPACTION_INTERVAL,
+        compactionCheckInterval: process.env.COMPACTION_CHECK_INTERVAL,
         /**
          * The duration incoming messages are held in memory before being bulk written into Realm
          *

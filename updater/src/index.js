@@ -17,12 +17,13 @@ app.post('/container/', async (req, res) => {
   const newImageName = req.body.newContainerName;
   let status = 'updated';
 
-  const currentContainer = docker.getContainer(currentContainerId)
-  const containerInfo = await currentContainer.inspect()
+  const currentContainer = docker.getContainer(currentContainerId);
+  const containerInfo = await currentContainer.inspect();
 
-  const currentImageName = containerInfo.Config.Image
+  const currentImageName = containerInfo.Config.Image;
 
-  return docker.pull(newImageName)
+  return docker
+    .pull(newImageName)
     .then(async (result) => {
       if (currentContainer) {
         await currentContainer.stop();
@@ -82,7 +83,7 @@ function createBrokerContainer(imageName) {
         'REALM_APP_ID=' + process.env.REALM_APP_ID,
         'REALM_EMAIL=' + process.env.REALM_EMAIL,
         'REALM_PASSWORD=' + process.env.REALM_PASSWORD,
-        'COMPACTION_INTERVAL=' + process.env.REALM_PASSWORD,
+        'COMPACTION_CHECK_INTERVAL=' + process.env.COMPACTION_CHECK_INTERVAL,
         'MESSAGE_SYNC_INTERVAL=' + process.env.MESSAGE_SYNC_INTERVAL,
         'UPDATE_BASE_URL=' + process.env.UPDATE_BASE_URL,
         'UPDATE_CHECK_INTERVAL=' + process.env.UPDATE_CHECK_INTERVAL,

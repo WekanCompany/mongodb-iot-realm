@@ -14,8 +14,8 @@ Broker.prototype.start = function start(port) {
   });
 };
 
-Broker.prototype.pause = function pasue() {
-  console.log('Aedes broker paused ...');
+Broker.prototype.closed = function pasue() {
+  console.log('Restarting Aedes broker ...');
   this._server.close();
 };
 
