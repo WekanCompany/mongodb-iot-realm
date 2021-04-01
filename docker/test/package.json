@@ -1,0 +1,11 @@
+{
+  "name": "aedes-test",
+  "description": "Testing MQTT Broker",
+  "main": "index.js",
+  "dependencies": {
+    "compute-mode": "^1.0.0",
+    "convert-hrtime": "^3.0.0",
+    "mqtt": "^4.2.1"
+  },
+  "devDependencies": {}
+}

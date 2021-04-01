@@ -9,7 +9,7 @@
   "author": "Sanchan Moses <sanchanm@wekan.company>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": ">=0.21.1",
     "dockerode": "^3.2.1",
     "express": "^4.17.1"
   }

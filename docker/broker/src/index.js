@@ -57,7 +57,8 @@ const main = async () => {
         compactionThreshold: edgeConfiguration[0].compactSize,
         compactionCheckInterval: process.env.COMPACTION_CHECK_INTERVAL,
         /**
-         * The duration incoming messages are held in memory before being bulk written into Realm
+         * Incoming messages are held in memory for this duration before they are
+         * bulk written into Realm.
          *
          * Defined in seconds
          */
@@ -78,7 +79,7 @@ const main = async () => {
       process.env.UPDATE_CHECK_INTERVAL,
     ];
   } catch (error) {
-    throw new Error('Failed to initialize the aedes broker');
+    throw new Error((error && error.message) ? error.message : 'Failed to initialize the aedes broker');
   }
 };
 
@@ -97,4 +98,4 @@ main()
 
     utils.updater.start(...result);
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.error(error));

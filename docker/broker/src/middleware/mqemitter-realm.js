@@ -26,11 +26,11 @@ function RealmEmitter(opts) {
   /** Holds incoming messages */
   this._messages = [];
   /** 
-   Whenever a configured topic receives a message, we calculate the difference 
-   between the current and the last sync timestamp. If the difference exceeds 
-   this value, we trigger the SYNC_MESSAGES event, which calls syncMessages
+   Whenever a configured topic receives a message and the difference 
+   between the current and the last sync timestamp exceeds this value, 
+   we trigger the SYNC_MESSAGES event
   
-   Defined in seconds. Defaults to 5 seconds
+   Defined in seconds.
    */
   this._syncInterval = 5;
   this._lastSyncTimestamp = Date.now();
@@ -42,21 +42,20 @@ function RealmEmitter(opts) {
    messages to the configured topics, we use setInterval to call syncMessages 
    at longer intervals to sync the remaining messages
   
-   Defined in seconds. Defauts to 1 minute
+   Defined in seconds.
    */
   this._cleanupInterval = 60;
   /**
-   * This interval is set to the compact function to check the size of the
-   * realm file and compacts it if exceeds threshold.
+   * This interval is used to the compact the Realm if its size exceeds
+   * the configured threshold.
    *
-   * Defined in seconds. Defaults to 60 minutes.
+   * Defined in seconds.
    */
   this._compactionCheckInterval = 60 * 60;
   /** Defined in MiB */
   this._compactionThreshold = 25;
   /**
-   * This boolean ensures the compaction is taking place. But default it is set to False.
-   * Checking this boolean true makes the realm write to stop and hold on the in memory array.
+   * Boolean to ensure sync isn't triggered when the realm is being compacted.
    */
   this._isCompacting = false;
 

@@ -71,7 +71,7 @@ function createBrokerContainer(imageName) {
     {
       name: 'broker',
       HostConfig: {
-        NetworkMode: 'realm-aedes-net',
+        NetworkMode: 'mongo-demo',
         RestartPolicy: { Name: 'unless-stopped' },
         PortBindings: {
           '1883/tcp': [{ HostIP: '0.0.0.0', HostPort: '1883' }],
