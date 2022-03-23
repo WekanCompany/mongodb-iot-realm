@@ -1,8 +1,8 @@
-import React from 'react';
-import { useRealmApp } from '../../RealmApp';
-import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
-import { ChartDetail } from './NewChart';
-import { Table, Switch, Button, Drawer, message } from 'antd';
+import React from "react";
+import { useRealmApp } from "../../RealmApp";
+import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
+import { ChartDetail } from "./NewChart";
+import { Table, Switch, Button, Drawer, message } from "antd";
 
 export const ChartSettings = (props) => {
   const app = useRealmApp();
@@ -10,89 +10,75 @@ export const ChartSettings = (props) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [selectedChart, setSelected] = React.useState(null);
   const { currentEdge } = props;
-
+ 
   const fetchEdges = () => {
+    console.log(currentEdge)
     app.getCharts(currentEdge.edgeId, true).then((res) => {
       setCharts(res);
     });
   };
 
   const updateEdges = async (chart, isActive) => {
-    message.loading('Updating...', 1);
-
+    message.loading("Updating...",1)
+    
     chart = {
       ...chart,
-      isActive,
-    };
-    app.createOrUpdateChart(chart).then((res) => {
-      message.success('Success !!!');
-      fetchEdges();
-    });
-  };
-
+      isActive
+    }
+    app.createOrUpdateChart(chart).then(res=>{
+      message.success("Success !!!")
+      fetchEdges()
+  })
+  }
+  
   React.useEffect(() => {
     fetchEdges();
   }, []);
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Chart ID',
-      dataIndex: 'chartId',
-      key: 'chartId',
+      title: "Chart Id",
+      dataIndex: "chartId",
+      key: "chartId",
     },
     {
-      title: 'Status',
-      dataIndex: 'isActive',
-      key: 'isActive',
+      title: "Status",
+      dataIndex: "isActive",
+      key: "isActive",
       render: (data, item) => (
         <Switch
           checked={data}
           onChange={(r) => {
-            updateEdges(item, r);
+            updateEdges(item, r)
           }}
         />
       ),
     },
     {
-      title: 'Action',
-      render: (data, item) => (
+      title: "Action",
+      render: (data , item) => (
         <>
-          <Button
-            type='link'
-            icon={<EditTwoTone />}
-            size='small'
-            onClick={() => {
-              setSelected(item);
-              setShowDrawer(true);
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            type='link'
-            icon={<DeleteTwoTone />}
-            size='small'
-            onClick={() => {
-              console.log(item);
-            }}
-          >
-            Delete
-          </Button>
+        <Button type="link" icon={<EditTwoTone />} size="small" onClick={()=>{setSelected(item); setShowDrawer(true)}}>
+          Edit
+        </Button>
+        <Button type="link" icon={<DeleteTwoTone />} size="small" onClick={()=>{console.log(item)}}>
+          Delete
+        </Button>
         </>
       ),
     },
   ];
 
   return (
-    <div className='charts-settings'>
+    <div className="charts-settings">
       <Button
-        type='default'
-        style={{ float: 'right', marginBottom: 20 }}
+        type="default"
+        style={{ float: "right", marginBottom: 20 }}
         onClick={() => {
           setShowDrawer(true);
         }}
@@ -103,8 +89,8 @@ export const ChartSettings = (props) => {
       {showDrawer && (
         <Drawer
           width={500}
-          title='AddChart'
-          placement='right'
+          title="AddChart"
+          placement="right"
           closable={true}
           onClose={() => {
             setShowDrawer(false);
@@ -116,7 +102,7 @@ export const ChartSettings = (props) => {
             onClose={() => {
               fetchEdges();
               setShowDrawer(false);
-              setSelected(null);
+              setSelected(null)
             }}
             currentItem={selectedChart}
           />

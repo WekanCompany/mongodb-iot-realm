@@ -4,7 +4,7 @@ exports = async function (arg) {
     url: "https://api.sendgrid.com/v3/mail/send",
     headers: {
       authorization:
-        "Bearer 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",
+        "YOUR_SENDGRID_API_KEY",
       "Content-Type": "application/json",
     },
     body: {
@@ -23,7 +23,7 @@ exports = async function (arg) {
         },
       ],
       from: { email: "ramachandrang@wekan.company" },
-      template_id: "d-6f4703d08384459ba0ce51341a73c818",
+      template_id: "YOUR_TEMPLATE_ID",
     },
     encodeBodyAsJSON: true,
   });

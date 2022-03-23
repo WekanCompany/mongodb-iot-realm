@@ -170,61 +170,58 @@ client.on('message', function (topic, message) {
 });
 ```
 
+
+# Mongodb Timeseries Collection
+
+Create a mongodb timeseries collection on the database cluster created by the realm. The (Realm function and triggers)[#realm-triggers--functions] will move the data from  synced collection to the time series collection.
+
+```
+db.createCollection(
+    "timeseriesData",
+    {
+       timeseries: {
+          timeField: "timestamp",
+          metaField: "meta",
+          granularity: "seconds"
+       }
+    }
+)
+```
+
 ## Realm Triggers & Functions
 
 Over a period of time, the data in the synced collection grows and lands up consuming space on the Edge as well. To reduce the size and also ensure data is stored appropriately for analytics for insights, we use Realm DB Triggers & functions.
 
-With help of Realm DB triggers & functions, the realtime sensor data is moved from the synced collection to an unsyced collection an stored using a sized based bucketing pattern (Refer - <https://www.mongodb.com/blog/post/time-series-data-and-mongodb-part-1-introduction)>.
+With help of Realm DB triggers & functions, the realtime sensor data is moved from the synced collection to an timeseries collection an stored using a timeseries configured pattern (Refer - https://docs.mongodb.com/manual/core/timeseries-collections/).
 
 The code as follows,
 
 ```js
-exports = async function () {
-  const asyncForEach = async (array, callback) => {
-    for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array);
-    }
-  };
 
+exports = async function () {
   // Access a mongodb service:
-  const mongodb = context.services.get('mongo-atlas');
-  const syncCollection = mongodb.db('iot-dev').collection('sensorData');
-  const nonSyncCollection = mongodb.db('iot-dev').collection('sizedSensorData');
+  const mongodb = context.services.get("mongodb-atlas");
+  const syncCollection = mongodb.db("reference").collection("sensorData");
+  const timeSeriesCollection = mongodb.db("reference").collection("timeseriesData");
   syncCollection
     .find({})
     .sort({ timestamp: 1 })
     .limit(100)
     .toArray()
     .then(async (items) => {
-      await asyncForEach(items, async (doc, index) => {
-        await nonSyncCollection.updateOne(
-          {
-            edgeId: doc.edgeId,
-            sensorId: doc.sensorId,
-            count: { $lt: 200 },
-          },
-          {
-            $push: {
-              history: { value: doc.value, timestamp: doc.timestamp },
-            },
-            $min: { fromTimestamp: doc.timestamp },
-            $max: { toTimestamp: doc.timestamp },
-            $inc: { count: 1 },
-          },
-          { upsert: true }
-        );
-        await syncCollection.deleteOne({ _id: doc._id });
-      });
+      items = items.map((i) => ({ timestamp: new Date(i.timestamp), meta: { edgeId: i.edgeId, sensorId: i.sensorId }, value: i.value }))
+      await timeSeriesCollection.insertMany(items);
     })
     .catch((err) => console.error(`Failed to find documents: ${err}`));
 };
+
 ```
 
-Once the data is moved to the unsynced collection, the data is cleared from the Realm synced collection which then syncs back with the Edge realm to free up space.
+Once the data is moved to the timeseries collection, the data is cleared from the Realm synced collection which then syncs back with the Edge realm to free up space.
 
 ## MongoDB Charts
 
-The MongoDB Charts use the the bucketed time-series data to visualize the sensor data.
+The MongoDB Charts use the the  timeseries collection data to visualize the sensor data.
 
 ![MongoDB Charts](./docs/mongo-atlas-charts.png)
 

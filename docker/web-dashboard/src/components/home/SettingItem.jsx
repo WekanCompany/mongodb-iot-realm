@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Input, Row, Col, InputNumber } from 'antd';
-import { string, number, func, oneOfType, oneOf } from 'prop-types';
+import { useState } from "react";
+import { Input, Row, Col, InputNumber } from "antd";
+import { string, func, oneOfType, oneOf } from "prop-types";
 
 export const SettingItem = (props) => {
   const {
@@ -15,16 +15,16 @@ export const SettingItem = (props) => {
   } = props;
   const [input, setInput] = useState(value);
   return (
-    <Row style={{ width: '100%' }} className='setting-item'>
-      <Col span={14} className='information-container'>
-        <h3 className='title'>{title}</h3>
-        <p className='description'>{description}</p>
+    <Row style={{ width: "100%" }} className="setting-item">
+      <Col span={14} className="information-container">
+        <h3 className="title">{title}</h3>
+        <p className="description">{description}</p>
       </Col>
-      <Col span={10} className='input-container'>
-        <h3 className='label-placeholder'>{label}</h3>
-        {inputType === 'text' && (
+      <Col span={10} className="input-container">
+        <h3 className="label-placeholder">{label}</h3>
+        {inputType === "text" && (
           <Input
-            className='input-field'
+            className="input-field"
             placeholder={placeholder}
             value={input}
             onBlur={() => {
@@ -37,12 +37,12 @@ export const SettingItem = (props) => {
             onChange={({ target }) => setInput(target.value)}
           />
         )}
-        {inputType === 'number' && (
+        {inputType === "number" && (
           <InputNumber
-            className='input-field'
+            className="input-field"
             placeholder={placeholder}
             value={input}
-            formatter={(value) => `${value}`}
+            formatter={(value)=> `${value}`}
             onBlur={() => {
               if (input.toString().trim().length > 0) {
                 onEditEnded && onEditEnded({ key: name, value: input });
@@ -63,12 +63,12 @@ SettingItem.propTypes = {
   title: string.isRequired,
   description: string.isRequired,
   label: string.isRequired,
-  value: oneOfType([string, number]),
+  value: oneOfType(["string", "number"]),
   placeholder: string.isRequired,
   onEditEnded: func,
-  inputType: oneOf(['string', 'number']),
+  inputType: oneOf(["string", "number"]),
 };
 
 SettingItem.defaultProps = {
-  value: '',
+  value: "",
 };

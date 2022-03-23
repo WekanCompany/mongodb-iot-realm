@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client';
-import { message } from 'antd';
-import gql from 'graphql-tag';
+import { useQuery } from "@apollo/client";
+import {message} from 'antd';
+import gql from "graphql-tag";
 
 const useEdges = () => {
   const { edges, loading } = useAllEdges();
@@ -21,8 +21,6 @@ function useAllEdges() {
           edgeId
           edgeName
           compactSize
-          updateDay
-          updateTime
           sensors {
             _id
             sensorName
@@ -30,16 +28,14 @@ function useAllEdges() {
             sensorType
             threshold
             unit
-            isConfigured
           }
         }
       }
     `,
     { variables: {} }
   );
-  if (loading) {
-    console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwww');
-    message.loading('loading...', 2);
+  if(loading){
+    message.loading({content:'loading...', key:"loading"}, 2);
   }
   if (error) {
     throw new Error(`Failed to fetch tasks: ${error.message}`);

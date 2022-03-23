@@ -1,7 +1,7 @@
-import { Button } from 'antd';
-import React from 'react';
-import { ReloadOutlined } from '@ant-design/icons';
-import { useRealmApp } from '../../RealmApp';
+import { Button } from "antd";
+import React from "react";
+import { ReloadOutlined } from "@ant-design/icons";
+import { useRealmApp } from "../../RealmApp";
 
 export const Dashboard = (props) => {
   const { currentEdge } = props;
@@ -13,41 +13,43 @@ export const Dashboard = (props) => {
       setCharts(res);
     });
   };
-
   React.useEffect(() => {
     if (currentEdge) {
-      app.getCharts(currentEdge.edgeId, false).then((res) => {
-        setCharts(res);
-      });
+      fetchCharts();
     }
   }, [app, currentEdge]);
 
   return (
-    <div className='dashboard-container'>
+    <div className="dashboard-container">
+      <div style={{width:"100%", textAlign:"right"}}>
       <Button
-        type='link'
+        type="link"
         icon={<ReloadOutlined />}
-        size='small'
+        size="small"
+        style={{border:"solid 1px #eaeaea", marginBottom:20}}
         onClick={() => {
-          fetchCharts();
+          if (currentEdge) {
+            fetchCharts();
+          }
         }}
       >
         Refresh
       </Button>
+      </div>
       <div
-        id='chart'
+        id="chart"
         style={{
-          display: 'flex',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-around',
+          display: "flex",
+          flexFlow: "row wrap",
+          justifyContent: "space-around",
         }}
       >
         {charts.map((x, i) => (
           <iframe
             title={x.name}
             style={{
-              border: 'none',
-              height: '60vh',
+              border: "1px solid #eaeaea",
+              height: "60vh",
               width: `${x.width || 50}%`,
             }}
             src={`https://charts.mongodb.com/charts-project-0-lweyh/embed/charts?id=${x.chartId}&theme=light`}

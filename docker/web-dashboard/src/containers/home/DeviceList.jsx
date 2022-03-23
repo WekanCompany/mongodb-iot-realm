@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Switch, InputNumber } from 'antd';
-import { toPlainObject } from 'lodash';
-import useEdgeMutation from '../../graphql/useEdgesMutation';
+import React, { useState, useEffect } from "react";
+import { Table, Switch, InputNumber } from "antd";
+import { toPlainObject } from "lodash";
+import useEdgeMutation from "../../graphql/useEdgesMutation";
 
 export const DeviceList = (props) => {
   const { currentEdge } = props;
@@ -17,7 +17,7 @@ export const DeviceList = (props) => {
   const onSensorConfigurationChanged = (item, change) => {
     let tempSensors = [...sensors].map((x) => {
       const obj = toPlainObject(x);
-      delete obj['__typename'];
+      delete obj["__typename"];
       return obj;
     });
     const sensorIndex = tempSensors.findIndex(
@@ -35,49 +35,29 @@ export const DeviceList = (props) => {
 
   const columns = [
     {
-      title: 'Sensor Id',
-      dataIndex: 'sensorId',
-      key: 'sensorId',
+      title: "Sensor Id",
+      dataIndex: "sensorId",
+      key: "sensorId",
     },
     {
-      title: 'Sensor Name',
-      dataIndex: 'sensorName',
-      key: 'sensorName',
+      title: "Sensor Name",
+      dataIndex: "sensorName",
+      key: "sensorName",
     },
     {
-      title: 'Alert',
-      dataIndex: 'isConfigured',
-      key: 'isConfigured',
-      render: (data, item) => (
-        <Switch
-          checked={data}
-          onChange={(status) => {
-            onSensorConfigurationChanged(item, {
-              key: 'isConfigured',
-              value: status,
-            });
-          }}
-        />
-      ),
-    },
-    {
-      title: 'Threshold (metric)',
-      dataIndex: 'treshold',
-      key: 'treshold',
+      title: "Threshold (metric)",
+      dataIndex: "threshold",
+      key: "threshold",
       render: (data, item) =>
-        !item.isConfigured ? (
-          <p>{data ? data : 'N/A'}</p>
-        ) : (
-          <InputNumber
-            defaultValue={data}
-            onBlur={({ target }) =>
-              onSensorConfigurationChanged(item, {
-                key: 'treshold',
-                value: target.value,
-              })
-            }
-          />
-        ),
+        <InputNumber
+          defaultValue={data}
+          onBlur={({ target }) =>
+            onSensorConfigurationChanged(item, {
+              key: "threshold",
+              value: target.value,
+            })
+          }
+        />
     },
   ];
   return <Table columns={columns} dataSource={sensors} />;

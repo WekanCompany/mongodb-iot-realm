@@ -1,5 +1,5 @@
-import React from 'react';
-import * as Realm from 'realm-web';
+import React from "react";
+import * as Realm from "realm-web";
 
 const RealmAppContext = React.createContext();
 
@@ -18,7 +18,7 @@ export const RealmAppProvider = ({ appId, children }) => {
   React.useEffect(() => {
     setApp(new Realm.App(appId));
   }, [appId]);
-
+  
   // Wrap the Realm.App object's user state with React state
   const [currentUser, setCurrentUser] = React.useState(app.currentUser);
   async function logIn(credentials) {
@@ -34,29 +34,25 @@ export const RealmAppProvider = ({ appId, children }) => {
     setCurrentUser(app.currentUser);
   }
 
-  async function getCharts(edgeId, _all = false) {
-    if (currentUser) {
-      return currentUser.callFunction('getAllCharts', { edgeId, _all });
+  async function getCharts(edgeId, _all=false) {
+
+    if(currentUser && edgeId){
+      return currentUser.callFunction("getAllCharts", {edgeId, _all})
     }
-    return Promise.reject('CurrentUser not found');
+    return Promise.reject("CurrentUser not found");
+    
   }
 
   async function createOrUpdateChart(chart) {
-    if (currentUser) {
-      return currentUser.callFunction('createOrUpdateChart', chart);
+    if(currentUser){
+      return currentUser.callFunction("createOrUpdateChart", chart)
     }
-    return Promise.reject('CurrentUser not found');
+    return Promise.reject("CurrentUser not found");
   }
 
-  const wrapped = {
-    ...app,
-    currentUser,
-    logIn,
-    logOut,
-    getCharts,
-    createOrUpdateChart,
-  };
+  const wrapped = { ...app, currentUser, logIn, logOut, getCharts,createOrUpdateChart };
 
+  
   return (
     <RealmAppContext.Provider value={wrapped}>
       {children}

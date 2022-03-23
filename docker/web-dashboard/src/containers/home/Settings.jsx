@@ -1,28 +1,23 @@
-import { useState, useEffect } from 'react';
-import { List, Empty } from 'antd';
-import { SettingItem } from '../../components/home/SettingItem';
-import useEdgeMutation from '../../graphql/useEdgesMutation';
-import { UpgraderItem } from '../../components/home/UpgradeItem';
+import { useState, useEffect } from "react";
+import { List, Empty } from "antd";
+import { SettingItem } from "../../components/home/SettingItem";
+import useEdgeMutation from "../../graphql/useEdgesMutation";
+import { UpgraderItem } from "../../components/home/UpgradeItem";
 
-const data = ['edge-name', 'compact', 'upgrade'];
+const data = ["edge-name", "compact", "upgrade"];
 
 export const Settings = (props) => {
   const { currentEdge } = props;
   const { updateEdge } = useEdgeMutation();
-  const [edgeName, setEdgeName] = useState('');
-  const [compactSize, setCompactSize] = useState('');
-  const [upgrader, setUpgrader] = useState({
-    updateTime: '00:00',
-    updateDay: '0',
-  });
+  const [edgeName, setEdgeName] = useState("");
+  const [compactSize, setCompactSize] = useState("");
+  const [upgrader, setUpgrader] = useState({upgradeTime:"00:00", upgradeDay:"0"});
   useEffect(() => {
     if (currentEdge) {
+      console.log(currentEdge)
       setEdgeName(currentEdge.edgeName);
       setCompactSize(currentEdge.compactSize);
-      setUpgrader({
-        updateTime: currentEdge.updateTime || '00:00',
-        updateDay: currentEdge.updateDay || '0',
-      });
+      setUpgrader({upgradeTime:currentEdge.upgradeTime || "00:00", upgradeDay:currentEdge.upgradeDay || "0"})
     }
   }, [currentEdge]);
 
@@ -32,14 +27,14 @@ export const Settings = (props) => {
 
   const Name = () => (
     <SettingItem
-      title={'Edge Name'}
-      name={'edgeName'}
+      title={"Edge Name"}
+      name={"edgeName"}
       description={
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
       }
-      label={'Set a name for your edge broker'}
+      label={"Set a name for your edge broker"}
       placeholder="Villa's Edge device"
-      inputType='text'
+      inputType="text"
       value={edgeName}
       onEditEnded={(res) => {
         setEdgeName(res.value);
@@ -50,14 +45,14 @@ export const Settings = (props) => {
 
   const Compact = () => (
     <SettingItem
-      name={'compactSize'}
-      title={'Compact'}
+      name={"compactSize"}
+      title={"Compact"}
       description={
-        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum '
+        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum "
       }
-      label={'Max size to compact in MB'}
-      placeholder='25MB'
-      inputType='number'
+      label={"Max size to compact in MB"}
+      placeholder="25MB"
+      inputType="number"
       value={compactSize}
       onEditEnded={(res) => {
         setCompactSize(res.value);
@@ -68,12 +63,12 @@ export const Settings = (props) => {
 
   const Upgrader = () => (
     <UpgraderItem
-      description='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum '
-      title='Check for the Upgrade'
-      label='Check for upgrade for every'
+      description="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum "
+      title="Check for the Upgrade"
+      label="Check for upgrade for every"
       value={upgrader}
       onEditEnded={(res) => {
-        setUpgrader(res);
+        setUpgrader(res)
         updateEdge(currentEdge, res);
       }}
     />
@@ -81,24 +76,24 @@ export const Settings = (props) => {
 
   return (
     <List
-      className='settings-list-container'
-      size='large'
+      className="settings-list-container"
+      size="large"
       dataSource={data}
       renderItem={(item) => {
         switch (item) {
-          case 'edge-name':
+          case "edge-name":
             return (
               <List.Item>
                 <Name />
               </List.Item>
             );
-          case 'compact':
+          case "compact":
             return (
               <List.Item>
                 <Compact />
               </List.Item>
             );
-          case 'upgrade':
+          case "upgrade":
             return (
               <List.Item>
                 <Upgrader />
